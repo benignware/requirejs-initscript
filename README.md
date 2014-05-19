@@ -5,7 +5,7 @@ A requirejs-plugin to find the main executing script element.
 
 Case
 ----
-When building a reuseable widget-application with requirejs, you may need to access the embedding script element to gather certain parameters, such as the data-attributes, CDATA-/JSON-content or the src's querystring.
+When building a reuseable widget-application with requirejs, you may need to access the embedding script element to gather certain parameters, such as data-attributes, CDATA-/JSON-content or the url's querystring.
 
 
 Usage
