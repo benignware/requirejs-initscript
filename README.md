@@ -70,6 +70,8 @@ require(['require'], function(require) {
   });
 });
 ```
-
+```
+<script src="bundle.js" data-value="static_1"></script>
+```
 
 
