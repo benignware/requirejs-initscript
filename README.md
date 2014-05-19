@@ -42,6 +42,32 @@ As data-main-source either use your main.js or your single build output file.
 In order to make our widget-application run in other requirejs-environments we need requirejs itself namespaced and bundled with the application script as described here: 
 http://requirejs.org/docs/faq-advanced.html#rename
 
+```
+// example optimizer build config:
+{
+  optimize: "none",
+  appDir: 'samples/bundle/src',  
+  baseUrl: ".",
+  mainConfigFile: "samples/bundle/src/main.js",
+  findNestedDependencies: true, 
+  dir: "samples/bundle/build", 
+  namespace: 'initscriptExample', 
+  paths: {
+      requireLib: 'lib/requirejs/require'
+  },
+  modules: [
+      {
+          name: "bundle",
+          include: ["requireLib", "main"],
+          //True tells the optimizer it is OK to create
+          //a new file foo.js. Normally the optimizer
+          //wants foo.js to exist in the source directory.
+          create: true
+      }
+  ]
+}
+```
+
 When using a bundle build, your requirejs-application can also be executed multiple times.  
 In this case, we need a dynamic require with a cache-busting id on the initscript-plugin in order to make the plugin run any time the script gets executed.
 
@@ -74,5 +100,7 @@ require(['require'], function(require) {
 ```
 <script src="bundle.js" data-value="static_1"></script>
 ```
+
+
 
 
