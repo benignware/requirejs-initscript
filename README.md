@@ -48,7 +48,7 @@ Since we cannot ressolve any dependency filenames in a bundled build, the name o
 Also optimizer throws an error on dynamic require-calls at the first level, so we workaround this by wrapping it in a static call getting a reference to local-require.
 
 ```
-# src/main.js
+// src/main.js
 require.config(
   {
     paths: {
