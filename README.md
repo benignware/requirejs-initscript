@@ -48,6 +48,7 @@ Since we cannot ressolve any dependency filenames in a bundled build, the name o
 Also optimizer throws an error on dynamic require-calls at the first level, so we workaround this by wrapping it in a static call getting a reference to local-require.
 
 ```
+# src/main.js
 require.config(
   {
     paths: {
@@ -63,7 +64,6 @@ require.config(
 );
 // need to wrap it into a static require call to get it work with optimizer namespace option
 require(['require'], function(require) {
-  
   // cache-bust the src to make it call every time the script executes
   require(['initscript!' + new Date().getTime()], function(initscript) {
     // init app
