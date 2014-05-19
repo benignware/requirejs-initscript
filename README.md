@@ -45,7 +45,7 @@ http://requirejs.org/docs/faq-advanced.html#rename
 When using a bundle build, your requirejs-application can also be executed multiple times.  
 In this case, we need a dynamic require with a cache-busting id on the initscript-plugin in order to make the plugin run any time the script gets executed.
 Since we cannot ressolve any dependency filenames in a bundled build, the name of the output-file needs to be configured.
-Also optimizer throws an error on dynamic require-calls at the first level, so we workaround this by wrapping it in a static call getting a reference to local-require.
+Also optimizer throws an error on dynamic require-calls at the first level, so we workaround this by wrapping it in a static call referencing local-require.
 
 ```
 // src/main.js
