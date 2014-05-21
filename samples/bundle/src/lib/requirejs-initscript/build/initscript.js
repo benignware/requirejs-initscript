@@ -72,8 +72,6 @@
             
             // match current script
             var matches = matchScripts(name);
-            
-            // console.log("matches: ", matches);
             for (var i = 0, match; match = matches[i]; i++) {
               if (!(!!~initialized.indexOf(match))) {
                 result = match;
