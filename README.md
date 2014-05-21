@@ -89,8 +89,9 @@ require.config(
     } 
   }
 );
-// need to wrap it into a static require call to get it work with optimizer namespace option
-require(['require'], function(require) {
+// need to wrap it into a static require call to get it work with optimizer namespace option.
+// also add a static reference to the initscript-plugin in order to be included in optimized build.
+require(['require', 'initscript'], function(require) {
   // cache-bust the src to make it call every time the script executes
   require(['initscript!' + new Date().getTime()], function(initscript) {
     // init app
