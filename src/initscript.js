@@ -1,5 +1,5 @@
 (function () {
-  
+
   function elementInDocument(element) {
     while (element = element.parentNode) {
         if (element == document) {
@@ -32,14 +32,15 @@
     // holds already initialized scripts
     var initialized = [];
   
-    var baseUrl = req.toUrl('');
+    
+    
     
     function matchScripts(name) {
       
       var matches = [];
       var scripts = document.getElementsByTagName('script');
       
-      var baseUrl = cleanSrc(baseUrl);
+      var baseUrl = cleanSrc(req.toUrl(''));
       var filename = baseUrl ? baseUrl + "/" + name + ".js" : name + ".js";
       
       for (var i = 0, script; script = scripts[i]; i++) {
@@ -71,8 +72,9 @@
       
       load: function (name, req, onload, config) {
         
-        var script = null;
+        var result = null;
 
+          
         if (!config.isBuild) {
           
           var baseUrl = req.toUrl('');
@@ -95,27 +97,14 @@
             
             // match current script
             var matches = matchScripts(name);
+            
             for (var i = 0, match; match = matches[i]; i++) {
               if (!(!!~initialized.indexOf(match))) {
-                script = match;
+                result = match;
                 break;
               }
             }
           }
-        }
-        
-        
-        var result = null;
-        if (script) {
-          
-          var options = elementOptions(script);
-          
-          var src = script.src;
-          
-          var result = {
-            element: script, 
-            options: options 
-          };
         }
         
         initialized.push(result);
