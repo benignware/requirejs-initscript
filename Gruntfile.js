@@ -71,7 +71,7 @@ module.exports = function(grunt) {
   // load tasks
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-uglify');
-  grunt.loadNpmTasks('grunt-requirejs');
+  grunt.loadNpmTasks('grunt-contrib-requirejs');
 
   // register tasks
   grunt.registerTask('sample_regular', ['copy:sample_regular']);

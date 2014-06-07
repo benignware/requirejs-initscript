@@ -1,4 +1,13 @@
 (function () {
+  
+  function inArray(a, obj) {
+    for (var i = 0; i < a.length; i++) {
+        if (a[i] === obj) {
+            return true;
+        }
+    }
+    return false;
+  }
 
   function elementInDocument(element) {
     while (element = element.parentNode) {
@@ -98,8 +107,9 @@
             // match current script
             var matches = matchScripts(name);
             
-            for (var i = 0, match; match = matches[i]; i++) {
-              if (!(!!~initialized.indexOf(match))) {
+            for (var i = 0; i < matches.length; i++) {
+              var match = matches[i];
+              if (!inArray(match, initialized)) {
                 result = match;
                 break;
               }
