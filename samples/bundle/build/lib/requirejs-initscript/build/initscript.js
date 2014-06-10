@@ -64,7 +64,7 @@
         
         src = cleanSrc(script.getAttribute('src'));
         
-        if (filename == src) {
+        if (!script.getAttribute('data-requiremodule') && filename == src) {
           match = script;
         }
         
