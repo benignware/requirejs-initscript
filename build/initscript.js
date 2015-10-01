@@ -18,12 +18,15 @@
     return false;
   };
   
-  function getAbsoluteURL (url) {
+  function resolvePath (url) {
     var div = document.createElement('div');
     div.innerHTML = "<a></a>";
     div.firstChild.href = url; // Ensures that the href is properly escaped
     div.innerHTML = div.innerHTML; // Run the current innerHTML back through the parser
-    return div.firstChild.href;
+    var result = div.firstChild.href;
+    // Strip query string
+    result = result.split("?")[0];
+    return result;
   }
   
   //Main module definition.
@@ -37,7 +40,7 @@
       var matches = [];
       var scripts = document.getElementsByTagName('script');
       
-      var baseUrl = getAbsoluteURL(req.toUrl(''));
+      var baseUrl = resolvePath(req.toUrl(''));
       
       var filename = baseUrl ? baseUrl.replace(/\/$/, "") + "/" + name + ".js" : name + ".js";
       
@@ -45,13 +48,13 @@
         
         var match = null, src = null;
         
-        src = getAbsoluteURL(script.getAttribute('data-main'));
+        src = resolvePath(script.getAttribute('data-main'));
         
         if (filename == src) {
           match = script;
         }
         
-        src = getAbsoluteURL(script.getAttribute('src'));
+        src = resolvePath(script.getAttribute('src'));
         if (!script.getAttribute('data-requiremodule') && filename == src) {
           match = script;
         }
