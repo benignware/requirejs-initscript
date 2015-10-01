@@ -2,68 +2,56 @@
   
   function inArray(a, obj) {
     for (var i = 0; i < a.length; i++) {
-        if (a[i] === obj) {
-            return true;
-        }
+      if (a[i] === obj) {
+        return true;
+      }
     }
     return false;
   }
 
   function elementInDocument(element) {
     while (element = element.parentNode) {
-        if (element == document) {
-            return true;
-        }
+      if (element == document) {
+          return true;
+      }
     }
     return false;
   };
   
-  
-  function cleanSrc(string) {
-    if (string) {
-      string = string.replace(/^(.\/)/, "");
-      string = string.replace(/\/$/, '');
-      var origin = (window.location.protocol + "\/\/" + window.location.host + window.location.pathname).replace(/\\/g, '/');
-      if (origin.substring(origin.length - 1, 1) != "/") {
-        var a = origin.split('/');
-        a.pop();
-        origin = a.join("/");
-      }
-      string = string.replace(new RegExp("\^\(" + origin + "\)", "ig"), '');
-      string = string.split("?")[0];
-    }
-    return string;
+  function getAbsoluteURL (url) {
+    var div = document.createElement('div');
+    div.innerHTML = "<a></a>";
+    div.firstChild.href = url; // Ensures that the href is properly escaped
+    div.innerHTML = div.innerHTML; // Run the current innerHTML back through the parser
+    return div.firstChild.href;
   }
-
-    //Main module definition.
+  
+  //Main module definition.
   define(['require', 'module'], function(req, module) {
     
     // holds already initialized scripts
     var initialized = [];
-  
-    
-    
     
     function matchScripts(name) {
       
       var matches = [];
       var scripts = document.getElementsByTagName('script');
       
-      var baseUrl = cleanSrc(req.toUrl(''));
-      var filename = baseUrl ? baseUrl + "/" + name + ".js" : name + ".js";
+      var baseUrl = getAbsoluteURL(req.toUrl(''));
+      
+      var filename = baseUrl ? baseUrl.replace(/\/$/, "") + "/" + name + ".js" : name + ".js";
       
       for (var i = 0, script; script = scripts[i]; i++) {
         
         var match = null, src = null;
         
-        src = cleanSrc(script.getAttribute('data-main'));
+        src = getAbsoluteURL(script.getAttribute('data-main'));
         
         if (filename == src) {
           match = script;
         }
         
-        src = cleanSrc(script.getAttribute('src'));
-        
+        src = getAbsoluteURL(script.getAttribute('src'));
         if (!script.getAttribute('data-requiremodule') && filename == src) {
           match = script;
         }
